@@ -11,13 +11,15 @@ async function digestMessage(message) {
   return hashHex;
 }
 
-const Hash = ({ img }) => {
+const Hash = ({ img, nonce }) => {
   const [exifrData, setExifrData] = useState("");
   const [hash, setHash] = useState(null);
   useEffect(() => {
     exifr.parse(img).then((data) => setExifrData(JSON.stringify(data)));
-    digestMessage(exifrData).then((digestHex) => setHash(digestHex));
-  }, [exifrData, img]);
+    digestMessage(exifrData.concat(nonce)).then((digestHex) =>
+      setHash(digestHex)
+    );
+  }, [exifrData, img, nonce]);
   return <div>{hash}</div>;
 };
 

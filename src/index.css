@@ -28,3 +28,7 @@ code {
   border: solid 1px black;
   margin: 5px;
 }
+
+.nonce-box {
+  margin: 5px;
+}

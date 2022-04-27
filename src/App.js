@@ -5,6 +5,7 @@ import paintings from "./img";
 function App() {
   const images = useMemo(
     () => [
+      paintings.cavePainting,
       paintings.lasMeninasVelazquez,
       paintings.daughtersOfSargent,
       paintings.lasMeninasPicasso,
