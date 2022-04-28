@@ -48,6 +48,10 @@ img {
   opacity: 50%;
 }
 
+.drop {
+  border: solid 1px black;
+}
+
 .img-data {
   padding: 5px;
   margin: 5px;
