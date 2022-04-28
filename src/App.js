@@ -26,6 +26,8 @@ function App() {
     []
   );
 
+  const NUMBER_OF_BLOCKS = 3;
+
   return (
     <div className="main">
       <div className="repo">
@@ -34,8 +36,8 @@ function App() {
         ))}
       </div>
       <div>
-        {images.map((image) => (
-          <ImageBlock key={image.id} />
+        {[...Array(NUMBER_OF_BLOCKS)].map((e, i) => (
+          <ImageBlock key={i} />
         ))}
       </div>
     </div>
