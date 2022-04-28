@@ -35,9 +35,9 @@ function App() {
           <Image key={image.id} img={image.src} id={image.id} />
         ))}
       </div>
-      <div>
+      <div className="blocks">
         {[...Array(NUMBER_OF_BLOCKS)].map((e, i) => (
-          <ImageBlock key={i} />
+          <ImageBlock key={i} blockId={i} />
         ))}
       </div>
     </div>

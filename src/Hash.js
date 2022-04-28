@@ -1,7 +1,7 @@
 import React from "react";
 
 const Hash = ({ hash }) => {
-  return <div>{hash}</div>;
+  return <div className="hash">{hash}</div>;
 };
 
 export default Hash;

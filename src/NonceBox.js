@@ -3,6 +3,7 @@ import React from "react";
 const NonceBox = ({ nonce, setNonce }) => {
   return (
     <div className="nonce-box">
+      <label>Nonce:</label>
       <input
         type="number"
         min="0"

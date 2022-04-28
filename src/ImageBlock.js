@@ -15,7 +15,7 @@ async function digestMessage(message) {
   return hashHex;
 }
 
-const ImageBlock = () => {
+const ImageBlock = ({ blockId }) => {
   const [nonce, setNonce] = useState(0);
   const [exifrData, setExifrData] = useState("");
   const [isMining, setIsMining] = useState(false);
@@ -58,7 +58,7 @@ const ImageBlock = () => {
   return (
     <>
       <div className="frame" ref={drop}>
-        {blockImage && <Image img={blockImage?.src} id={blockImage?.id} />}
+        <div className="hash">block id: {blockId}</div>
         <Hash hash={hash} />
         <div className="block">
           <NonceBox nonce={nonce} setNonce={setNonce} />
@@ -66,6 +66,7 @@ const ImageBlock = () => {
             Mine
           </button>
         </div>
+        {blockImage && <Image img={blockImage?.src} id={blockImage?.id} />}
       </div>
     </>
   );
