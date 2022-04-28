@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useCallback } from "react";
 import NonceBox from "./NonceBox";
 import Hash from "./Hash";
+import Image from "./Image";
 import exifr from "exifr";
+import { useDrop } from "react-dnd";
 
 async function digestMessage(message) {
   const msgUint8 = new TextEncoder().encode(message); // encode as (utf-8) Uint8Array
@@ -13,15 +15,27 @@ async function digestMessage(message) {
   return hashHex;
 }
 
-const ImageBlock = ({ img }) => {
+const ImageBlock = () => {
   const [nonce, setNonce] = useState(0);
   const [exifrData, setExifrData] = useState("");
   const [isMining, setIsMining] = useState(false);
   const [hash, setHash] = useState("");
 
+  const [blockImage, setBlockImage] = useState(null);
+  const [{ isOver }, drop] = useDrop(() => ({
+    accept: "picture",
+    drop: (item) => addImageToBlock(item),
+  }));
+
+  const addImageToBlock = (img) => {
+    setBlockImage(img);
+  };
+
   const getHash = useCallback(() => {
     if (isMining) {
-      exifr.parse(img).then((data) => setExifrData(JSON.stringify(data)));
+      exifr
+        .parse(blockImage.src)
+        .then((data) => setExifrData(JSON.stringify(data)));
       digestMessage(exifrData.concat(nonce)).then((digestHex) => {
         if (!digestHex.startsWith("000")) {
           setNonce((prev) => prev + 1);
@@ -31,7 +45,7 @@ const ImageBlock = ({ img }) => {
         }
       });
     }
-  }, [img, nonce, exifrData, isMining]);
+  }, [blockImage?.src, nonce, exifrData, isMining]);
 
   const handleClick = () => {
     setIsMining((prev) => !prev);
@@ -43,9 +57,9 @@ const ImageBlock = ({ img }) => {
 
   return (
     <>
-      <div className="frame">
+      <div className="frame" ref={drop}>
         <NonceBox nonce={nonce} setNonce={setNonce} />
-        <img src={img} alt="" />
+        {blockImage && <Image img={blockImage?.src} id={blockImage?.id} />}
         <Hash hash={hash} />
         <button className="btn" onClick={handleClick}>
           Mine

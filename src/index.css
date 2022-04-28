@@ -61,6 +61,8 @@ img {
 .frame {
   border: solid 1px black;
   margin: 5px;
+  min-height: 280px;
+  max-height: 280px;
 }
 
 .nonce-box {

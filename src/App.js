@@ -1,5 +1,4 @@
 import React, { useState, useMemo } from "react";
-import { useDrop } from "react-dnd";
 import Image from "./Image";
 import ImageBlock from "./ImageBlock";
 import paintings from "./img";
@@ -26,20 +25,6 @@ function App() {
     ],
     []
   );
-  const [blockImagesList, setBlockImagesList] = useState([]);
-  const [{ isOver }, drop] = useDrop(() => ({
-    accept: "picture",
-    drop: (item) => addImageToBlock(item.id),
-    collect: (monitor) => ({
-      isOver: !!monitor.isOver(),
-    }),
-  }));
-
-  const addImageToBlock = (id) => {
-    console.log("id:", id);
-    const blockImage = images.filter((img) => id === img.id)[0];
-    setBlockImagesList((blockImagesList) => [...blockImagesList, blockImage]);
-  };
 
   return (
     <div className="main">
@@ -48,9 +33,9 @@ function App() {
           <Image key={image.id} img={image.src} id={image.id} />
         ))}
       </div>
-      <div ref={drop} className="drop">
-        {blockImagesList.map((image) => (
-          <ImageBlock key={image.id} img={image.src} />
+      <div>
+        {images.map((image) => (
+          <ImageBlock key={image.id} />
         ))}
       </div>
     </div>
