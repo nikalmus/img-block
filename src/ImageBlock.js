@@ -17,34 +17,29 @@ const ImageBlock = ({ img }) => {
   const [nonce, setNonce] = useState(0);
   const [exifrData, setExifrData] = useState("");
   const [isMining, setIsMining] = useState(false);
-  const [hash, setHash] = useState(null);
+  const [hash, setHash] = useState("");
 
   const getHash = useCallback(() => {
-    exifr.parse(img).then((data) => setExifrData(JSON.stringify(data)));
-    digestMessage(exifrData.concat(nonce)).then((digestHex) => {
-      if (!digestHex.startsWith("0")) {
-        setNonce((prev) => prev + 1);
-        getHash();
-      } else {
-        console.log("INSIDE ELSE");
-        setIsMining((prev) => !prev);
-        console.log("isMining", isMining);
-        setHash(digestHex);
-        return;
-      }
-    });
+    if (isMining) {
+      exifr.parse(img).then((data) => setExifrData(JSON.stringify(data)));
+      digestMessage(exifrData.concat(nonce)).then((digestHex) => {
+        if (!digestHex.startsWith("000")) {
+          setNonce((prev) => prev + 1);
+        } else {
+          setIsMining((prev) => !prev);
+          setHash(digestHex);
+        }
+      });
+    }
   }, [img, nonce, exifrData, isMining]);
 
   const handleClick = () => {
     setIsMining((prev) => !prev);
-    isMining ? getHash() : console.log("isMining is", isMining);
   };
 
   useEffect(() => {
-    if (isMining) {
-      getHash();
-    }
-  }, [getHash, isMining]);
+    getHash();
+  }, [getHash]);
 
   return (
     <>
@@ -61,13 +56,3 @@ const ImageBlock = ({ img }) => {
 };
 
 export default ImageBlock;
-
-/*
-<Hash
-          img={img}
-          nonce={nonce}
-          setNonce={setNonce}
-          isMining={isMining}
-          setIsMining={setIsMining}
-        />
-*/
