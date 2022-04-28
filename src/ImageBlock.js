@@ -45,7 +45,7 @@ const ImageBlock = ({ img }) => {
     <>
       <div className="frame">
         <NonceBox nonce={nonce} setNonce={setNonce} />
-        <img src={img} className="photo" alt="" />
+        <img src={img} alt="" />
         <Hash hash={hash} />
         <button className="btn" onClick={handleClick}>
           Mine
