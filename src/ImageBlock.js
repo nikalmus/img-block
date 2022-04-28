@@ -27,8 +27,8 @@ const ImageBlock = () => {
     drop: (item) => addImageToBlock(item),
   }));
 
-  const addImageToBlock = (img) => {
-    setBlockImage(img);
+  const addImageToBlock = (image) => {
+    setBlockImage(image);
   };
 
   const getHash = useCallback(() => {
@@ -58,12 +58,14 @@ const ImageBlock = () => {
   return (
     <>
       <div className="frame" ref={drop}>
-        <NonceBox nonce={nonce} setNonce={setNonce} />
         {blockImage && <Image img={blockImage?.src} id={blockImage?.id} />}
         <Hash hash={hash} />
-        <button className="btn" onClick={handleClick}>
-          Mine
-        </button>
+        <div className="block">
+          <NonceBox nonce={nonce} setNonce={setNonce} />
+          <button className="btn" onClick={handleClick}>
+            Mine
+          </button>
+        </div>
       </div>
     </>
   );
