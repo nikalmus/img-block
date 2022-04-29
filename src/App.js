@@ -30,6 +30,14 @@ function App() {
 
   const [hashes, setHashes] = useState([]);
   const zeroHash = "0".repeat(64);
+
+  const getPrevHashById = (id) => {
+    const found = hashes.filter((hash, idx) => id === idx);
+    if (found.length === 1) {
+      return found[0];
+    }
+    return null;
+  };
   return (
     <div className="main">
       <div className="repo">
@@ -42,7 +50,7 @@ function App() {
           <ImageBlock
             key={i}
             blockId={i}
-            prevHash={i === 0 ? zeroHash : null}
+            prevHash={i === 0 ? zeroHash : getPrevHashById(i - 1)}
             hashes={hashes}
             setHashes={setHashes}
           />

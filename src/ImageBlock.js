@@ -36,17 +36,27 @@ const ImageBlock = ({ blockId, prevHash, hashes, setHashes }) => {
       exifr
         .parse(blockImage.src)
         .then((data) => setExifrData(JSON.stringify(data)));
-      digestMessage(exifrData.concat(nonce)).then((digestHex) => {
-        if (!digestHex.startsWith("000")) {
-          setNonce((prev) => prev + 1);
-        } else {
-          setIsMining((prev) => !prev);
-          setHash(digestHex);
-          setHashes([...hashes, digestHex]);
+      digestMessage(exifrData.concat(nonce).concat(prevHash)).then(
+        (digestHex) => {
+          if (!digestHex.startsWith("000")) {
+            setNonce((prev) => prev + 1);
+          } else {
+            setIsMining((prev) => !prev);
+            setHash(digestHex);
+            setHashes([...hashes, digestHex]);
+          }
         }
-      });
+      );
     }
-  }, [blockImage?.src, nonce, exifrData, isMining, hashes, setHashes]);
+  }, [
+    blockImage?.src,
+    nonce,
+    exifrData,
+    isMining,
+    hashes,
+    setHashes,
+    prevHash,
+  ]);
 
   const handleClick = () => {
     setIsMining((prev) => !prev);
