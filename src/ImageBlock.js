@@ -15,7 +15,7 @@ async function digestMessage(message) {
   return hashHex;
 }
 
-const ImageBlock = () => {
+const ImageBlock = ({ blockId, prevHash, hashes, setHashes }) => {
   const [nonce, setNonce] = useState(0);
   const [exifrData, setExifrData] = useState("");
   const [isMining, setIsMining] = useState(false);
@@ -42,10 +42,11 @@ const ImageBlock = () => {
         } else {
           setIsMining((prev) => !prev);
           setHash(digestHex);
+          setHashes([...hashes, digestHex]);
         }
       });
     }
-  }, [blockImage?.src, nonce, exifrData, isMining]);
+  }, [blockImage?.src, nonce, exifrData, isMining, hashes, setHashes]);
 
   const handleClick = () => {
     setIsMining((prev) => !prev);
@@ -58,13 +59,15 @@ const ImageBlock = () => {
   return (
     <>
       <div className="frame" ref={drop}>
-        {blockImage && <Image img={blockImage?.src} id={blockImage?.id} />}
-        <Hash hash={hash} />
         <div className="block">
           <NonceBox nonce={nonce} setNonce={setNonce} />
           <button className="btn" onClick={handleClick}>
             Mine
           </button>
+        </div>
+        <Hash blockId={blockId} hash={hash} prev={prevHash} />
+        <div className="picture-frame">
+          {blockImage && <Image img={blockImage?.src} id={blockImage?.id} />}
         </div>
       </div>
     </>

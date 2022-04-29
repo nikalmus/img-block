@@ -26,6 +26,10 @@ function App() {
     []
   );
 
+  const NUMBER_OF_BLOCKS = 3;
+
+  const [hashes, setHashes] = useState([]);
+  const zeroHash = "0".repeat(64);
   return (
     <div className="main">
       <div className="repo">
@@ -33,9 +37,15 @@ function App() {
           <Image key={image.id} img={image.src} id={image.id} />
         ))}
       </div>
-      <div>
-        {images.map((image) => (
-          <ImageBlock key={image.id} />
+      <div className="blocks">
+        {[...Array(NUMBER_OF_BLOCKS)].map((e, i) => (
+          <ImageBlock
+            key={i}
+            blockId={i}
+            prevHash={i === 0 ? zeroHash : null}
+            hashes={hashes}
+            setHashes={setHashes}
+          />
         ))}
       </div>
     </div>
