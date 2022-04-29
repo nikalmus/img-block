@@ -25,7 +25,7 @@ img {
 
 .main{
   display: grid;
-  grid-template-columns: 1fr 4fr;
+  grid-template-columns: 1fr 3fr 1fr;
   grid-gap: 1em;
 }
 
@@ -92,4 +92,15 @@ img {
 
 .btn {
   margin: 5px;
+}
+
+.foo{
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  grid-gap: 1em;
+}
+.debug {
+  border: solid 1px black;
+  margin: 5px;
+  font-size: small;
 }

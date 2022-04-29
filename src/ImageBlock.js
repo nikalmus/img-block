@@ -41,7 +41,8 @@ const ImageBlock = ({ blockId, prevHash, hashes, setHashes }) => {
           if (!digestHex.startsWith("000")) {
             setNonce((prev) => prev + 1);
           } else {
-            setIsMining((prev) => !prev);
+            //setIsMining((prev) => !prev);
+            setIsMining(false);
             setHash(digestHex);
             setHashes([...hashes, digestHex]);
           }
@@ -59,7 +60,8 @@ const ImageBlock = ({ blockId, prevHash, hashes, setHashes }) => {
   ]);
 
   const handleClick = () => {
-    setIsMining((prev) => !prev);
+    //setIsMining((prev) => !prev);
+    setIsMining(true);
   };
 
   useEffect(() => {
@@ -68,16 +70,21 @@ const ImageBlock = ({ blockId, prevHash, hashes, setHashes }) => {
 
   return (
     <>
-      <div className="frame" ref={drop}>
-        <div className="block">
-          <NonceBox nonce={nonce} setNonce={setNonce} />
-          <button className="btn" onClick={handleClick}>
-            Mine
-          </button>
+      <div className="foo">
+        <div className="frame" ref={drop}>
+          <div className="block">
+            <NonceBox nonce={nonce} setNonce={setNonce} />
+            <button className="btn" onClick={handleClick}>
+              Mine
+            </button>
+          </div>
+          <Hash blockId={blockId} hash={hash} prev={prevHash} />
+          <div className="picture-frame">
+            {blockImage && <Image img={blockImage?.src} id={blockImage?.id} />}
+          </div>
         </div>
-        <Hash blockId={blockId} hash={hash} prev={prevHash} />
-        <div className="picture-frame">
-          {blockImage && <Image img={blockImage?.src} id={blockImage?.id} />}
+        <div className="debug">
+          State (debug) :<p>isMining: {isMining.toString()}</p>
         </div>
       </div>
     </>
