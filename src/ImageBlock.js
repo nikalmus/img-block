@@ -15,6 +15,12 @@ async function digestMessage(message) {
   return hashHex;
 }
 
+const copyToClipBoard = async (txt) => {
+  try {
+    await navigator.clipboard.writeText(txt);
+  } catch (err) {}
+};
+
 const ImageBlock = ({ blockId, prevHash, hashes, setHashes }) => {
   const [nonce, setNonce] = useState(0);
   const [exifrData, setExifrData] = useState("");
@@ -35,7 +41,7 @@ const ImageBlock = ({ blockId, prevHash, hashes, setHashes }) => {
   };
 
   const getHash = useCallback(() => {
-    if (isMining) {
+    if (isMining && blockImage) {
       exifr
         .parse(blockImage.src)
         .then((data) => setExifrData(JSON.stringify(data)));
@@ -79,8 +85,15 @@ const ImageBlock = ({ blockId, prevHash, hashes, setHashes }) => {
           <div className="block-id">block {blockId}</div>
           <div className="block-header">
             <NonceBox nonce={nonce} setNonce={setNonce} />
-            <button className="btn" onClick={handleClick}>
+            <button
+              className="btn"
+              onClick={handleClick}
+              disabled={!blockImage}
+            >
               Mine
+            </button>
+            <button onClick={() => copyToClipBoard(hash)} className="icon">
+              {"\u2398"}
             </button>
           </div>
           <Hash

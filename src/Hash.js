@@ -5,12 +5,6 @@ const Hash = ({ prev, hash, setHash, setPrev }) => {
   const [inputValue, setInputValue] = useState(prev);
   const [visibleInput, setVisibleInput] = useState(false);
 
-  const copyToClipBoard = async (txt) => {
-    try {
-      await navigator.clipboard.writeText(txt);
-    } catch (err) {}
-  };
-
   const handleDivClick = () => {
     setVisibleDiv(false);
     setVisibleInput(true);
@@ -34,6 +28,7 @@ const Hash = ({ prev, hash, setHash, setPrev }) => {
         value={inputValue}
         onChange={handleChange}
         className="hack"
+        size="50"
       />
       <button onClick={handleDoneClick}>Done</button>
     </>
@@ -47,9 +42,6 @@ const Hash = ({ prev, hash, setHash, setPrev }) => {
       )}
       {visibleInput && inputBox}
       <div className="hash">Hash: {hash}</div>
-      <button onClick={() => copyToClipBoard(hash)} className="icon">
-        {"\u2398"}
-      </button>
     </>
   );
 };

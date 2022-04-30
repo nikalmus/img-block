@@ -126,6 +126,8 @@ img {
 .icon {
   font-size: x-large;
   font-family: Arial, Helvetica, sans-serif;
+  float: right;
+  margin: 2px;
 }
 
 
