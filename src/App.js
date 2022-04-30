@@ -26,11 +26,15 @@ function App() {
         id: 4,
         src: paintings.bigBrother,
       },
+      {
+        id: 5,
+        src: paintings.bobRoss,
+      },
     ],
     []
   );
 
-  const NUMBER_OF_BLOCKS = 4;
+  const NUMBER_OF_BLOCKS = 5;
 
   const [hashes, setHashes] = useState([]);
   const zeroHash = "0".repeat(64);
@@ -44,23 +48,27 @@ function App() {
   };
 
   return (
-    <div className="main">
+    <>
       <div className="repo">
         {images.map((image) => (
           <Image key={image.id} img={image.src} id={image.id} />
         ))}
       </div>
-      <div className="blocks">
-        {[...Array(NUMBER_OF_BLOCKS)].map((e, i) => (
-          <ImageBlock
-            key={i}
-            prevHash={i === 0 ? zeroHash : getPrevHashById(i - 1)}
-            hashes={hashes}
-            setHashes={setHashes}
-          />
-        ))}
+      <div>
+        <span className="node-id">Node: A</span>
+        <div className="node">
+          {[...Array(NUMBER_OF_BLOCKS)].map((e, i) => (
+            <ImageBlock
+              key={i}
+              blockId={i}
+              prevHash={i === 0 ? zeroHash : getPrevHashById(i - 1)}
+              hashes={hashes}
+              setHashes={setHashes}
+            />
+          ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 

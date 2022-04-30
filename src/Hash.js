@@ -35,12 +35,12 @@ const Hash = ({ prev, hash, setHash, setPrev }) => {
   return (
     <>
       {visibleDiv && (
-        <div onClick={handleDivClick}>
+        <div className="hash" onClick={handleDivClick}>
           Prev: {inputValue ? inputValue : prev}
         </div>
       )}
       {visibleInput && inputBox}
-      <div>Hash: {hash}</div>
+      <div className="hash">Hash: {hash}</div>
     </>
   );
 };
