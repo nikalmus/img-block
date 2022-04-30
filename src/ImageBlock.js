@@ -15,11 +15,12 @@ async function digestMessage(message) {
   return hashHex;
 }
 
-const ImageBlock = ({ blockId, prevHash, hashes, setHashes }) => {
+const ImageBlock = ({ prevHash, hashes, setHashes }) => {
   const [nonce, setNonce] = useState(0);
   const [exifrData, setExifrData] = useState("");
   const [isMining, setIsMining] = useState(false);
   const [hash, setHash] = useState("");
+  const [prev, setPrev] = useState(prevHash);
 
   const [blockImage, setBlockImage] = useState(null);
   const [{ isOver }, drop] = useDrop(() => ({
@@ -28,7 +29,9 @@ const ImageBlock = ({ blockId, prevHash, hashes, setHashes }) => {
   }));
 
   const addImageToBlock = (image) => {
-    setBlockImage(image);
+    setBlockImage((prevImage) => image);
+    setHash("");
+    setNonce(0);
   };
 
   const getHash = useCallback(() => {
@@ -36,31 +39,32 @@ const ImageBlock = ({ blockId, prevHash, hashes, setHashes }) => {
       exifr
         .parse(blockImage.src)
         .then((data) => setExifrData(JSON.stringify(data)));
-      digestMessage(exifrData.concat(nonce).concat(prevHash)).then(
-        (digestHex) => {
-          if (!digestHex.startsWith("000")) {
-            setNonce((prev) => prev + 1);
-          } else {
-            //setIsMining((prev) => !prev);
-            setIsMining(false);
-            setHash(digestHex);
-            setHashes([...hashes, digestHex]);
-          }
+      digestMessage(exifrData.concat(nonce).concat(prev)).then((digestHex) => {
+        if (!digestHex.startsWith("00")) {
+          setNonce((prev) => prev + 1);
+        } else {
+          setIsMining(false);
+          setHash(digestHex);
+          setHashes([
+            ...hashes,
+            { id: blockImage.id, prev: prevHash, hash: digestHex },
+          ]);
         }
-      );
+      });
     }
   }, [
-    blockImage?.src,
+    blockImage,
     nonce,
     exifrData,
     isMining,
     hashes,
     setHashes,
     prevHash,
+    prev,
   ]);
 
   const handleClick = () => {
-    //setIsMining((prev) => !prev);
+    setNonce(0);
     setIsMining(true);
   };
 
@@ -78,13 +82,15 @@ const ImageBlock = ({ blockId, prevHash, hashes, setHashes }) => {
               Mine
             </button>
           </div>
-          <Hash blockId={blockId} hash={hash} prev={prevHash} />
+          <Hash
+            hash={hash}
+            prev={prevHash}
+            setHash={setHash}
+            setPrev={setPrev}
+          />
           <div className="picture-frame">
             {blockImage && <Image img={blockImage?.src} id={blockImage?.id} />}
           </div>
-        </div>
-        <div className="debug">
-          State (debug) :<p>isMining: {isMining.toString()}</p>
         </div>
       </div>
     </>

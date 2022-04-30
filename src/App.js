@@ -7,19 +7,19 @@ function App() {
   const images = useMemo(
     () => [
       {
-        id: 1,
+        id: 0,
         src: paintings.cavePainting,
       },
       {
-        id: 2,
+        id: 1,
         src: paintings.lasMeninasVelazquez,
       },
       {
-        id: 3,
+        id: 2,
         src: paintings.daughtersOfSargent,
       },
       {
-        id: 4,
+        id: 3,
         src: paintings.lasMeninasPicasso,
       },
     ],
@@ -32,12 +32,13 @@ function App() {
   const zeroHash = "0".repeat(64);
 
   const getPrevHashById = (id) => {
-    const found = hashes.filter((hash, idx) => id === idx);
+    const found = hashes.filter((item) => id === item.id);
     if (found.length === 1) {
-      return found[0];
+      return found[0].hash;
     }
-    return null;
+    return "";
   };
+
   return (
     <div className="main">
       <div className="repo">
@@ -49,7 +50,6 @@ function App() {
         {[...Array(NUMBER_OF_BLOCKS)].map((e, i) => (
           <ImageBlock
             key={i}
-            blockId={i}
             prevHash={i === 0 ? zeroHash : getPrevHashById(i - 1)}
             hashes={hashes}
             setHashes={setHashes}
