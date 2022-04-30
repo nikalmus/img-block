@@ -22,11 +22,15 @@ function App() {
         id: 3,
         src: paintings.lasMeninasPicasso,
       },
+      {
+        id: 4,
+        src: paintings.bigBrother,
+      },
     ],
     []
   );
 
-  const NUMBER_OF_BLOCKS = 3;
+  const NUMBER_OF_BLOCKS = 4;
 
   const [hashes, setHashes] = useState([]);
   const zeroHash = "0".repeat(64);

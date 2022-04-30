@@ -100,17 +100,9 @@ img {
   grid-template-columns: 3fr 1fr;
   grid-gap: 1em;
 }
-.debug {
-  border: solid 1px black;
-  margin: 5px;
-  font-size: small;
-}
 
 .hack{
   border: solid 1px gray;
   margin: 5px;
 }
 
-.empty{
-  color: red;
-}
