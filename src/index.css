@@ -40,7 +40,7 @@ img {
 .block{
   display: grid;
   grid-template-columns: 3fr 1fr;
-  width: 460px;
+  width: 520px;
 }
 
 .block-header {
@@ -51,9 +51,9 @@ img {
   display:inline-block; /* nonce and Mine button horizontal */
 }
 
-.hash{
-  white-space: nowrap; /* does not print hashes on a new line after "Prev" or "Hash" */
+.hash  {
   width: 300px;
+  white-space: nowrap; /* does not print hashes on a new line after "Prev" or "Hash" */
   overflow: hidden;
   text-overflow: ellipsis;
 }
