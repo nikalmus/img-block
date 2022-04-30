@@ -38,7 +38,7 @@ function App() {
 
   const [hashes, setHashes] = useState([]);
   const [showMore, setShowMore] = useState(false);
-  const [addNodes, setAddNodes] = useState(false);
+  const [numOfNodes, setNumOfNodes] = useState(1);
 
   const zeroHash = "0".repeat(64);
 
@@ -51,45 +51,50 @@ function App() {
   };
 
   const changeNodes = () => {
-    console.log("add nodes");
+    setNumOfNodes((cur) => cur + 1);
   };
+
+  const repo = (
+    <div className="repo">
+      {images.map((image, idx) =>
+        !showMore && idx <= 3 ? (
+          <Image key={image.id} img={image.src} id={image.id} />
+        ) : showMore ? (
+          <Image key={image.id} img={image.src} id={image.id} />
+        ) : (
+          ""
+        )
+      )}
+      <button className="btn-right" onClick={() => setShowMore((cur) => !cur)}>
+        {!showMore ? "show more" : "show less"}
+      </button>
+    </div>
+  );
+
+  const node = (
+    <div>
+      <span className="node-id">Node: A</span>
+      <div className="node">
+        {[...Array(NUMBER_OF_BLOCKS)].map((e, i) => (
+          <ImageBlock
+            key={i}
+            blockId={i}
+            prevHash={i === 0 ? zeroHash : getPrevHashById(i - 1)}
+            hashes={hashes}
+            setHashes={setHashes}
+          />
+        ))}
+      </div>
+    </div>
+  );
 
   return (
     <>
-      <div className="repo">
-        {images.map((image, idx) =>
-          !showMore && idx <= 3 ? (
-            <Image key={image.id} img={image.src} id={image.id} />
-          ) : showMore ? (
-            <Image key={image.id} img={image.src} id={image.id} />
-          ) : (
-            ""
-          )
-        )}
-        <button
-          className="btn-right"
-          onClick={() => setShowMore((cur) => !cur)}
-        >
-          {!showMore ? "show more" : "show less"}
-        </button>
-      </div>
+      {repo}
       <div className="chain">
-        <div>
-          <span className="node-id">Node: A</span>
-          <div className="node">
-            {[...Array(NUMBER_OF_BLOCKS)].map((e, i) => (
-              <ImageBlock
-                key={i}
-                blockId={i}
-                prevHash={i === 0 ? zeroHash : getPrevHashById(i - 1)}
-                hashes={hashes}
-                setHashes={setHashes}
-              />
-            ))}
-          </div>
-        </div>
+        {[...Array(numOfNodes)].map((n, i) => node)}
         <button className="btn-add-nodes" onClick={changeNodes}>
-          {!addNodes ? "add nodes" : "remove nodes"}
+          add nodes
         </button>
       </div>
     </>
