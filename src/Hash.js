@@ -47,7 +47,9 @@ const Hash = ({ prev, hash, setHash, setPrev }) => {
       )}
       {visibleInput && inputBox}
       <div className="hash">Hash: {hash}</div>
-      <button onClick={() => copyToClipBoard(hash)}>Copy</button>
+      <button onClick={() => copyToClipBoard(hash)} className="icon">
+        {"\u2398"}
+      </button>
     </>
   );
 };
