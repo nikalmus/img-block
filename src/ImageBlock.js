@@ -92,7 +92,10 @@ const ImageBlock = ({ blockId, prevHash, hashes, setHashes }) => {
             >
               Mine
             </button>
-            <button onClick={() => copyToClipBoard(hash)} className="icon">
+            <button
+              onClick={() => copyToClipBoard(hash)}
+              className="icon btn-right"
+            >
               {"\u2398"}
             </button>
           </div>
