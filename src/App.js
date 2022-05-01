@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useRef } from "react";
 import Image from "./Image";
 import ImageBlock from "./ImageBlock";
 import paintings from "./img";
@@ -34,11 +34,15 @@ function App() {
     []
   );
 
+  const nodesRef = useRef(null);
   const NUMBER_OF_BLOCKS = 5;
+  const MAX_NUMBER_OF_NODES = 3;
 
   const [hashes, setHashes] = useState([]);
   const [showMore, setShowMore] = useState(false);
-  const [numOfNodes, setNumOfNodes] = useState(1);
+
+  const firstNode = { name: "A", id: 65 };
+  const [nodes, setNodes] = useState([firstNode]); //ascii for A
 
   const zeroHash = "0".repeat(64);
 
@@ -50,8 +54,14 @@ function App() {
     return "";
   };
 
-  const changeNodes = () => {
-    setNumOfNodes((cur) => cur + 1);
+  const addNode = () => {
+    setNodes([
+      ...nodes,
+      {
+        id: nodes[nodes.length - 1].id + 1,
+        name: String.fromCharCode(nodes[nodes.length - 1].id + 1),
+      },
+    ]);
   };
 
   const repo = (
@@ -71,32 +81,35 @@ function App() {
     </div>
   );
 
-  const node = (
-    <div>
-      <span className="node-id">Node: A</span>
-      <div className="node">
-        {[...Array(NUMBER_OF_BLOCKS)].map((e, i) => (
-          <ImageBlock
-            key={i}
-            blockId={i}
-            prevHash={i === 0 ? zeroHash : getPrevHashById(i - 1)}
-            hashes={hashes}
-            setHashes={setHashes}
-          />
-        ))}
-      </div>
-    </div>
-  );
-
   return (
     <>
       {repo}
-      <div className="chain">
-        {[...Array(numOfNodes)].map((n, i) => node)}
-        <button className="btn-add-nodes" onClick={changeNodes}>
-          add nodes
-        </button>
+      <div className="chain" ref={nodesRef}>
+        {nodes.map((node) => (
+          <div key={node.name}>
+            <span className="node-id">Node: {node.name}</span>
+            <div className="node" id={`node${node.name}`}>
+              {[...Array(NUMBER_OF_BLOCKS)].map((e, i) => (
+                <ImageBlock
+                  key={i}
+                  node={node.name}
+                  blockId={i}
+                  prevHash={i === 0 ? zeroHash : getPrevHashById(i - 1)}
+                  hashes={hashes}
+                  setHashes={setHashes}
+                />
+              ))}
+            </div>
+          </div>
+        ))}
       </div>
+      <button
+        className="btn-add-nodes"
+        onClick={addNode}
+        disabled={nodes.length === MAX_NUMBER_OF_NODES}
+      >
+        add node
+      </button>
     </>
   );
 }

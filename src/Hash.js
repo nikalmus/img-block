@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const Hash = ({ prev, hash, setHash, setPrev }) => {
+const Hash = ({ node, blockId, prev, hash, setHash, setPrev }) => {
   const [visibleDiv, setVisibleDiv] = useState(true);
   const [inputValue, setInputValue] = useState(prev);
   const [visibleInput, setVisibleInput] = useState(false);
@@ -36,12 +36,18 @@ const Hash = ({ prev, hash, setHash, setPrev }) => {
   return (
     <>
       {visibleDiv && (
-        <div className="hash" onClick={handleDivClick}>
+        <div
+          className="hash"
+          id={`node${node}-block${blockId}-prev`}
+          onClick={handleDivClick}
+        >
           Prev: {inputValue ? inputValue : prev}
         </div>
       )}
       {visibleInput && inputBox}
-      <div className="hash">Hash: {hash}</div>
+      <div className="hash" id={`node${node}-block${blockId}-hash`}>
+        Hash: {hash}
+      </div>
     </>
   );
 };

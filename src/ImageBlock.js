@@ -21,7 +21,7 @@ const copyToClipBoard = async (txt) => {
   } catch (err) {}
 };
 
-const ImageBlock = ({ blockId, prevHash, hashes, setHashes }) => {
+const ImageBlock = ({ node, blockId, prevHash, hashes, setHashes }) => {
   const [nonce, setNonce] = useState(0);
   const [exifrData, setExifrData] = useState("");
   const [isMining, setIsMining] = useState(false);
@@ -29,6 +29,7 @@ const ImageBlock = ({ blockId, prevHash, hashes, setHashes }) => {
   const [prev, setPrev] = useState(prevHash);
 
   const [blockImage, setBlockImage] = useState(null);
+
   const [{ isOver }, drop] = useDrop(() => ({
     accept: "picture",
     drop: (item) => addImageToBlock(item),
@@ -80,8 +81,8 @@ const ImageBlock = ({ blockId, prevHash, hashes, setHashes }) => {
 
   return (
     <>
-      <div className="block">
-        <div className="frame" ref={drop}>
+      <div className="block" id={`node${node}-${blockId}-block`}>
+        <div className="frame" id={`node${node}-${blockId}-frame`} ref={drop}>
           <div className="block-id">block {blockId}</div>
           <div className="block-header">
             <NonceBox nonce={nonce} setNonce={setNonce} />
@@ -100,12 +101,14 @@ const ImageBlock = ({ blockId, prevHash, hashes, setHashes }) => {
             </button>
           </div>
           <Hash
+            node={node}
+            blockId={blockId}
             hash={hash}
             prev={prevHash}
             setHash={setHash}
             setPrev={setPrev}
           />
-          <div className="picture-frame">
+          <div className="picture-frame" id={`node${node}-block${blockId}-pic`}>
             {blockImage && <Image img={blockImage?.src} id={blockImage?.id} />}
           </div>
         </div>
