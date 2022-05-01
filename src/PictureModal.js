@@ -4,7 +4,6 @@ import Modal from "./Modal";
 import "./PictureModal.css";
 
 const PictureModal = ({ large, setLoadBigImg }) => {
-  console.log("LARGE", large);
   return (
     <>
       <Backdrop />

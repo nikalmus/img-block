@@ -3,7 +3,6 @@ import { useDrag } from "react-dnd";
 import PictureModal from "./PictureModal";
 
 const Image = ({ img, id, large }) => {
-  console.log("IMG", img);
   const [loadBigImg, setLoadBigImg] = useState(false);
   const [{ isDragging }, drag] = useDrag(() => ({
     type: "picture",
