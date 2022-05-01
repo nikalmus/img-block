@@ -8,27 +8,27 @@ function App() {
     () => [
       {
         id: 0,
-        src: paintings.cavePainting,
+        src: paintings.cave,
       },
       {
         id: 1,
-        src: paintings.lasMeninasVelazquez,
+        src: paintings.velazquez,
       },
       {
         id: 2,
-        src: paintings.daughtersOfSargent,
+        src: paintings.sargent,
       },
       {
         id: 3,
-        src: paintings.lasMeninasPicasso,
+        src: paintings.picasso,
       },
       {
         id: 4,
-        src: paintings.bigBrother,
+        src: paintings.bigbrother,
       },
       {
         id: 5,
-        src: paintings.bobRoss,
+        src: paintings.bobross,
       },
     ],
     []

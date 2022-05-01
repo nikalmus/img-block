@@ -28,7 +28,7 @@ const Hash = ({ node, blockId, prev, hash, setHash, setPrev }) => {
         value={inputValue}
         onChange={handleChange}
         className="hack"
-        size="50"
+        size="40"
       />
       <button onClick={handleDoneClick}>Done</button>
     </>
