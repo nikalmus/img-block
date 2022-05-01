@@ -9,26 +9,32 @@ function App() {
       {
         id: 0,
         src: paintings.cave,
+        large: paintings.caveL,
       },
       {
         id: 1,
         src: paintings.velazquez,
+        large: paintings.velazquezL,
       },
       {
         id: 2,
         src: paintings.sargent,
+        large: paintings.sargentL,
       },
       {
         id: 3,
         src: paintings.picasso,
+        large: paintings.picassoL,
       },
       {
         id: 4,
         src: paintings.bigbrother,
+        large: paintings.bigbrotherL,
       },
       {
         id: 5,
         src: paintings.bobross,
+        large: paintings.bobrossL,
       },
     ],
     []
@@ -68,9 +74,19 @@ function App() {
     <div className="repo">
       {images.map((image, idx) =>
         !showMore && idx <= 3 ? (
-          <Image key={image.id} img={image.src} id={image.id} />
+          <Image
+            key={image.id}
+            img={image.src}
+            id={image.id}
+            large={image.large}
+          />
         ) : showMore ? (
-          <Image key={image.id} img={image.src} id={image.id} />
+          <Image
+            key={image.id}
+            img={image.src}
+            id={image.id}
+            large={image.large}
+          />
         ) : (
           ""
         )

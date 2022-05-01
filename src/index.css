@@ -14,10 +14,8 @@ code {
 img {
   min-height: 200px;
   min-width: 200px;
-  max-height: 400px;
-  /*position: relative;*/
   display: block;  /* to stack images vertically in .repo */
-  height: 20%; /* need these */
+  height: 20%; /* 20% need these to fit in blocks */
   width: 20%;
   
   object-fit: contain;
@@ -76,6 +74,14 @@ img {
   margin: auto; /* marging auto and display block to center images */
   /*display: block;*/
   display:inline-block; /*side by side*/
+}
+
+.large-img > img{
+  object-fit: contain; /* to preserve aspect ratio */
+  margin: auto; /* marging auto and display block to center images */
+  display: block;
+  width:85%;
+  height:85%;
 }
 
 .drag {
