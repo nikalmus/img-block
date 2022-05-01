@@ -1,24 +1,55 @@
-import React, { useState, useEffect } from "react";
-import exifr from "exifr";
+import React, { useState } from "react";
 
-async function digestMessage(message) {
-  const msgUint8 = new TextEncoder().encode(message); // encode as (utf-8) Uint8Array
-  const hashBuffer = await crypto.subtle.digest("SHA-256", msgUint8); // hash the message
-  const hashArray = Array.from(new Uint8Array(hashBuffer)); // convert buffer to byte array
-  const hashHex = hashArray
-    .map((b) => b.toString(16).padStart(2, "0"))
-    .join(""); // convert bytes to hex string
-  return hashHex;
-}
+const Hash = ({ node, blockId, prev, hash, setHash, setPrev }) => {
+  const [visibleDiv, setVisibleDiv] = useState(true);
+  const [inputValue, setInputValue] = useState(prev);
+  const [visibleInput, setVisibleInput] = useState(false);
 
-const Hash = ({ img }) => {
-  const [exifrData, setExifrData] = useState("");
-  const [hash, setHash] = useState(null);
-  useEffect(() => {
-    exifr.parse(img).then((data) => setExifrData(JSON.stringify(data)));
-    digestMessage(exifrData).then((digestHex) => setHash(digestHex));
-  }, [exifrData, img]);
-  return <div>{hash}</div>;
+  const handleDivClick = () => {
+    setVisibleDiv(false);
+    setVisibleInput(true);
+  };
+
+  const handleDoneClick = () => {
+    setVisibleDiv(true);
+    setVisibleInput(false);
+    setPrev(inputValue);
+    setHash("");
+  };
+
+  const handleChange = (e) => {
+    setInputValue(e.target.value);
+  };
+
+  const inputBox = (
+    <>
+      <input
+        type="text"
+        value={inputValue}
+        onChange={handleChange}
+        className="hack"
+        size="40"
+      />
+      <button onClick={handleDoneClick}>Done</button>
+    </>
+  );
+  return (
+    <>
+      {visibleDiv && (
+        <div
+          className="hash"
+          id={`node${node}-block${blockId}-prev`}
+          onClick={handleDivClick}
+        >
+          Prev: {inputValue ? inputValue : prev}
+        </div>
+      )}
+      {visibleInput && inputBox}
+      <div className="hash" id={`node${node}-block${blockId}-hash`}>
+        Hash: {hash}
+      </div>
+    </>
+  );
 };
 
 export default Hash;
