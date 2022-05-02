@@ -26,13 +26,13 @@ img {
   grid-template-columns: repeat(5, minmax(0, 1fr));
   /*grid-template-columns: repeat(5, 1fr);*/  /*causes big gaps between columns*/
   border: solid 2px black;
-  margin: 5px;
+  margin: 5px 30px 5px 30px;
 }
 
 .node-id{
   background-color: darkolivegreen;
   color: white;
-  margin: 5px;
+  margin: 0px 30px 5px 30px;
 }
 
 .block{
@@ -58,7 +58,7 @@ img {
 
 .repo {
   border: solid 1px black;
-  margin: 5px;
+  margin: 30px 30px 5px 30px;
   overflow: scroll;
 }
 
@@ -140,7 +140,7 @@ img {
 }
 
 .btn-add-nodes{
-  margin: 5px;
+  margin: 5px 30px 5px 30px;
 }
 
 

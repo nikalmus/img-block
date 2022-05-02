@@ -54,7 +54,7 @@ function App() {
 
   const getPrevHashById = (id) => {
     const found = hashes.filter((item) => id === item.id);
-    if (found.length === 1) {
+    if (found.length > 0) {
       return found[0].hash;
     }
     return "";
