@@ -1,7 +1,8 @@
 import React, { useState, useMemo, useRef } from "react";
 import Image from "./Image";
 import ImageBlock from "./ImageBlock";
-import paintings from "./img";
+import HelpModal from "./HelpModal";
+import { paintings } from "./img";
 
 function App() {
   const images = useMemo(
@@ -45,8 +46,12 @@ function App() {
   const firstNode = { name: "A", id: 65 };
   const [nodes, setNodes] = useState([firstNode]); //ascii for A
   const [badActor, setBadActor] = useState(false); 
-
+  const [loadHelp, setLoadHelp] = useState(false);
   const [imageReplacedByBadActor, setImageReplacedByBadActor] = useState(false);
+
+  const handleHelp = () => {
+    setLoadHelp(true);
+  };
 
   const handleImageReplacedByBadActor = (isReplaced) => {
     setImageReplacedByBadActor(isReplaced);
@@ -113,8 +118,18 @@ function App() {
         onClick={handleBadActorToggle}
         title={badActor && imageReplacedByBadActor ? "Block was modified" : badActor && ! imageReplacedByBadActor ? "Switch to Good Actor" : "Switch to Bad Actor" }
       >
-        {badActor && imageReplacedByBadActor ? "Reload All" : badActor && ! imageReplacedByBadActor ? "Good Actor" : "Bad Actor" }
+        {badActor && imageReplacedByBadActor ? "Reload" : badActor && ! imageReplacedByBadActor ? "Good Actor" : "Bad Actor" }
       </button>
+      <div>
+      <button
+        className="btn-add-nodes"
+        onClick={handleHelp}
+      > Help
+      </button>
+      {loadHelp && (
+        <HelpModal setLoadHelp={setLoadHelp} />
+      )}
+      </div>
     </>
   );
 }
