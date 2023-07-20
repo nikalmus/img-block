@@ -21,10 +21,10 @@ img {
   object-fit: contain;
 }
 
-.node{
+.node {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  /*grid-template-columns: repeat(5, 1fr);*/  /*causes big gaps between columns*/
+  grid-template-columns: repeat(5, 1fr); /* Adjust the number of columns as needed */
+  gap: 5px; /* Add some gap between the "block" elements if desired */
   border: solid 2px black;
   margin: 5px 30px 5px 30px;
 }
@@ -35,10 +35,10 @@ img {
   margin: 0px 30px 5px 30px;
 }
 
-.block{
+.block {
   display: grid;
   grid-template-columns: 3fr 1fr;
-  width: 520px;
+  /* width: 520px; */ /* Remove this fixed width */
 }
 
 .block-header {
@@ -112,8 +112,6 @@ img {
 .picture-frame {
   border: solid 1px lightgray;;
   margin: 5px;
-  /* width: 200px;
-  height:200px; */
 }
 
 .nonce-box {
