@@ -41,11 +41,16 @@ function App() {
 
 
   const [hashes, setHashes] = useState([]);
-  //const [showMore, setShowMore] = useState(false);
 
   const firstNode = { name: "A", id: 65 };
   const [nodes, setNodes] = useState([firstNode]); //ascii for A
   const [badActor, setBadActor] = useState(false); 
+
+  const [imageReplacedByBadActor, setImageReplacedByBadActor] = useState(false);
+
+  const handleImageReplacedByBadActor = (isReplaced) => {
+    setImageReplacedByBadActor(isReplaced);
+  };
 
   const zeroHash = "0".repeat(64);
 
@@ -68,6 +73,17 @@ function App() {
     </div>
   );
 
+  const handleBadActorToggle = () => {
+    if (badActor && imageReplacedByBadActor) {
+      window.location.reload(); 
+    } else if (badActor) {
+      setBadActor(false)
+    } 
+    else {
+      setBadActor(true); 
+    }
+  };
+
   return (
     <>
       {repo}
@@ -85,6 +101,7 @@ function App() {
                   hashes={hashes}
                   setHashes={setHashes}
                   badActor={badActor}
+                  onImageReplacedByBadActor={handleImageReplacedByBadActor}
                 />
               ))}
             </div>
@@ -93,10 +110,10 @@ function App() {
       </div>
       <button
         className="btn-add-nodes"
-        onClick={() => setBadActor((good) => !good)}
-        title={badActor ? "Switch to Good Actor" : "Switch to Bad Actor"}
+        onClick={handleBadActorToggle}
+        title={badActor && imageReplacedByBadActor ? "Block was modified" : badActor && ! imageReplacedByBadActor ? "Switch to Good Actor" : "Switch to Bad Actor" }
       >
-        {badActor ? "Good Actor" : "Bad Actor"}
+        {badActor && imageReplacedByBadActor ? "Reload All" : badActor && ! imageReplacedByBadActor ? "Good Actor" : "Bad Actor" }
       </button>
     </>
   );

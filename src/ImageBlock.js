@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import NonceBox from "./NonceBox";
 import Hash from "./Hash";
 import Image from "./Image";
@@ -21,7 +21,7 @@ const copyToClipBoard = async (txt) => {
   } catch (err) {}
 };
 
-const ImageBlock = ({ node, blockId, prevHash, hashes, setHashes, badActor }) => {
+const ImageBlock = ({ node, blockId, prevHash, hashes, setHashes, badActor, onImageReplacedByBadActor }) => {
   const [nonce, setNonce] = useState(0);
   const [exifrData, setExifrData] = useState("");
   const [isMining, setIsMining] = useState(false);
@@ -29,16 +29,38 @@ const ImageBlock = ({ node, blockId, prevHash, hashes, setHashes, badActor }) =>
   const [prev, setPrev] = useState(prevHash);
 
   const [blockImage, setBlockImage] = useState(null);
+  const imagePresentRef = useRef(false);
+  const badActorRef = useRef(badActor);
 
-  const [{ isOver }, drop] = useDrop(() => ({
-    accept: "picture",
-    drop: (item) => addImageToBlock(item),
-  }));
+  useEffect(() => {
+    badActorRef.current = badActor;
+  }, [badActor]);
+
+  const [{ isOver }, drop] = useDrop(
+    () => ({
+      accept: "picture",
+      drop: (item, monitor) => {
+        if (!imagePresentRef.current || badActorRef.current) {
+          addImageToBlock(item);
+        }
+      },
+      collect: (monitor) => ({
+        isOver: !!monitor.isOver(),
+      }),
+    })
+  );
+
 
   const addImageToBlock = (image) => {
-    setBlockImage((prevImage) => image);
-    setHash("");
-    setNonce(0);
+    if (!imagePresentRef.current || badActorRef.current) {
+      imagePresentRef.current = true;
+      setBlockImage((prevImage) => image);
+      setHash("");
+      setNonce(0);
+      if (badActorRef.current){
+        onImageReplacedByBadActor(true)
+      }
+    }
   };
 
   const getHash = useCallback(() => {

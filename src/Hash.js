@@ -40,7 +40,7 @@ const Hash = ({ node, blockId, prev, hash, setHash, setPrev, badActor }) => {
           className="hash"
           id={`node${node}-block${blockId}-prev`}
           onClick={badActor ? handleDivClick : null}
-          title={badActor && "2. Click to paste previous hash from clipboard" }
+          title={badActor ? "2. Click to paste previous hash from clipboard" : undefined}
           style={{ cursor: badActor ? 'pointer' : 'default' }}
         >
           Prev: {inputValue ? inputValue : prev}
