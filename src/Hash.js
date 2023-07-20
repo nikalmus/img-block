@@ -6,11 +6,13 @@ const Hash = ({ node, blockId, prev, hash, setHash, setPrev }) => {
   const [visibleInput, setVisibleInput] = useState(false);
 
   const handleDivClick = () => {
+    console.log("handleDiv triggered");
     setVisibleDiv(false);
     setVisibleInput(true);
   };
 
   const handleDoneClick = () => {
+    console.log("handleDoneClick triggered");
     setVisibleDiv(true);
     setVisibleInput(false);
     setPrev(inputValue);

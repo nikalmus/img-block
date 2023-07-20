@@ -12,9 +12,7 @@ code {
     monospace;
 }
 img {
-  min-height: 200px;
-  min-width: 200px;
-  display: block;  /* to stack images vertically in .repo */
+  /* display: block;  to stack images vertically in .repo */
   height: 20%; /* 20% need these to fit in blocks */
   width: 20%;
   
@@ -38,7 +36,6 @@ img {
 .block {
   display: grid;
   grid-template-columns: 3fr 1fr;
-  /* width: 520px; */ /* Remove this fixed width */
 }
 
 .block-header {
