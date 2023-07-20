@@ -22,7 +22,6 @@ const copyToClipBoard = async (txt) => {
 };
 
 const ImageBlock = ({ node, blockId, prevHash, hashes, setHashes, badActor }) => {
-  console.log("bad Actor", badActor)
   const [nonce, setNonce] = useState(0);
   const [exifrData, setExifrData] = useState("");
   const [isMining, setIsMining] = useState(false);
@@ -98,6 +97,7 @@ const ImageBlock = ({ node, blockId, prevHash, hashes, setHashes, badActor }) =>
               badActor && 
               <button onClick={() => copyToClipBoard(hash)}
               className="icon btn-right"
+              title="1. Click to copy the hash to clipboard"
               >
               {"\u2398"}
             </button>

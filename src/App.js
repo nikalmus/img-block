@@ -37,7 +37,7 @@ function App() {
   );
 
   const nodesRef = useRef(null);
-  const NUMBER_OF_BLOCKS = 5;
+  const NUMBER_OF_BLOCKS = 4;
 
 
   const [hashes, setHashes] = useState([]);
@@ -74,7 +74,7 @@ function App() {
       <div className="chain" ref={nodesRef}>
         {nodes.map((node) => (
           <div key={node.name}>
-            <span className="node-id">Node: {node.name}</span>
+            {/* <span className="node-id">Node: {node.name}</span> */}
             <div className="node" id={`node${node.name}`}>
               {[...Array(NUMBER_OF_BLOCKS)].map((e, i) => (
                 <ImageBlock
@@ -94,8 +94,9 @@ function App() {
       <button
         className="btn-add-nodes"
         onClick={() => setBadActor((good) => !good)}
+        title={badActor ? "Switch to Good Actor" : "Switch to Bad Actor"}
       >
-        Bad Actor
+        {badActor ? "Good Actor" : "Bad Actor"}
       </button>
     </>
   );

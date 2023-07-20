@@ -21,21 +21,21 @@ img {
 
 .node {
   display: grid;
-  grid-template-columns: repeat(5, 1fr); /* Adjust the number of columns as needed */
+  grid-template-columns: repeat(4, 1fr); /* Adjust the number of columns as needed */
   gap: 5px; /* Add some gap between the "block" elements if desired */
   border: solid 2px black;
   margin: 5px 30px 5px 30px;
 }
 
-.node-id{
+/* .node-id{
   background-color: darkolivegreen;
   color: white;
   margin: 0px 30px 5px 30px;
-}
+} */
 
 .block {
   display: grid;
-  grid-template-columns: 3fr 1fr;
+  grid-template-columns: 8fr 0.5fr; /*gaps were to wide when 3fr 1fr*/
 }
 
 .block-header {
@@ -49,14 +49,17 @@ img {
 .hash  {
   width: 300px;
   white-space: nowrap; /* does not print hashes on a new line after "Prev" or "Hash" */
-  overflow: hidden;
+  overflow: hidden; 
   text-overflow: ellipsis;
+  margin: 10px 5px 10px 5px;
 }
 
 .repo {
   border: solid 1px black;
   margin: 30px 30px 5px 30px;
   overflow: scroll;
+  display: flex;
+  justify-content: center;
 }
 
 .repo > img{
@@ -93,7 +96,7 @@ img {
 .img-data {
   padding: 5px;
   margin: 5px;
-  background-color: lightgray;
+  /* background-color: lightgray; */
   width: 300px
 }
 
@@ -108,11 +111,12 @@ img {
 
 .picture-frame {
   border: solid 1px lightgray;;
-  margin: 5px;
+  margin: 25px;
 }
 
 .nonce-box {
   margin: 5px;
+  padding: 10px;
 }
 
 .btn {

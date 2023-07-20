@@ -6,13 +6,11 @@ const Hash = ({ node, blockId, prev, hash, setHash, setPrev, badActor }) => {
   const [visibleInput, setVisibleInput] = useState(false);
 
   const handleDivClick = () => {
-    console.log("handleDiv triggered");
     setVisibleDiv(false);
     setVisibleInput(true);
   };
 
   const handleDoneClick = () => {
-    console.log("handleDoneClick triggered");
     setVisibleDiv(true);
     setVisibleInput(false);
     setPrev(inputValue);
@@ -42,6 +40,8 @@ const Hash = ({ node, blockId, prev, hash, setHash, setPrev, badActor }) => {
           className="hash"
           id={`node${node}-block${blockId}-prev`}
           onClick={badActor ? handleDivClick : null}
+          title={badActor && "2. Click to paste previous hash from clipboard" }
+          style={{ cursor: badActor ? 'pointer' : 'default' }}
         >
           Prev: {inputValue ? inputValue : prev}
         </div>
