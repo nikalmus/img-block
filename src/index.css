@@ -62,7 +62,7 @@ img {
 .repo > img{
   min-height: 100px;
   min-width: 100px;
-  max-height: 100px;
+  /* max-height: 100px; */
   height: 10%; 
   width: 10%;
   margin: 10px;

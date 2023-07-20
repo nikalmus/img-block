@@ -21,7 +21,8 @@ const copyToClipBoard = async (txt) => {
   } catch (err) {}
 };
 
-const ImageBlock = ({ node, blockId, prevHash, hashes, setHashes }) => {
+const ImageBlock = ({ node, blockId, prevHash, hashes, setHashes, badActor }) => {
+  console.log("bad Actor", badActor)
   const [nonce, setNonce] = useState(0);
   const [exifrData, setExifrData] = useState("");
   const [isMining, setIsMining] = useState(false);
@@ -93,12 +94,14 @@ const ImageBlock = ({ node, blockId, prevHash, hashes, setHashes }) => {
             >
               Mine
             </button>
-            <button
-              onClick={() => copyToClipBoard(hash)}
+            {
+              badActor && 
+              <button onClick={() => copyToClipBoard(hash)}
               className="icon btn-right"
-            >
+              >
               {"\u2398"}
             </button>
+            }
           </div>
           <Hash
             node={node}
@@ -107,6 +110,7 @@ const ImageBlock = ({ node, blockId, prevHash, hashes, setHashes }) => {
             prev={prevHash}
             setHash={setHash}
             setPrev={setPrev}
+            badActor={badActor}
           />
           <div className="picture-frame" id={`node${node}-block${blockId}-pic`}>
             {blockImage && <Image img={blockImage?.src} id={blockImage?.id} />}

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const Hash = ({ node, blockId, prev, hash, setHash, setPrev }) => {
+const Hash = ({ node, blockId, prev, hash, setHash, setPrev, badActor }) => {
   const [visibleDiv, setVisibleDiv] = useState(true);
   const [inputValue, setInputValue] = useState(prev);
   const [visibleInput, setVisibleInput] = useState(false);
@@ -41,7 +41,7 @@ const Hash = ({ node, blockId, prev, hash, setHash, setPrev }) => {
         <div
           className="hash"
           id={`node${node}-block${blockId}-prev`}
-          onClick={handleDivClick}
+          onClick={badActor ? handleDivClick : null}
         >
           Prev: {inputValue ? inputValue : prev}
         </div>

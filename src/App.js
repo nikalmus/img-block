@@ -38,13 +38,14 @@ function App() {
 
   const nodesRef = useRef(null);
   const NUMBER_OF_BLOCKS = 5;
-  const MAX_NUMBER_OF_NODES = 3;
+
 
   const [hashes, setHashes] = useState([]);
-  const [showMore, setShowMore] = useState(false);
+  //const [showMore, setShowMore] = useState(false);
 
   const firstNode = { name: "A", id: 65 };
   const [nodes, setNodes] = useState([firstNode]); //ascii for A
+  const [badActor, setBadActor] = useState(false); 
 
   const zeroHash = "0".repeat(64);
 
@@ -56,41 +57,14 @@ function App() {
     return "";
   };
 
-  const addNode = () => {
-    setNodes([
-      ...nodes,
-      {
-        id: nodes[nodes.length - 1].id + 1,
-        name: String.fromCharCode(nodes[nodes.length - 1].id + 1),
-      },
-    ]);
-  };
-
 
   const repo = (
     <div className="repo">
-      {images.map((image, idx) =>
-        !showMore && idx <= 3 ? (
-          <Image
-            key={image.id}
-            img={image.src}
-            id={image.id}
-            large={image.large}
-          />
-        ) : showMore ? (
-          <Image
-            key={image.id}
-            img={image.src}
-            id={image.id}
-            large={image.large}
-          />
-        ) : (
-          ""
-        )
-      )}
-      <button className="btn-right" onClick={() => setShowMore((cur) => !cur)}>
-        {!showMore ? "show more" : "show less"}
-      </button>
+      {images
+        .slice(0, badActor ? images.length : 4) 
+        .map((image, idx) => (
+          <Image key={image.id} img={image.src} id={image.id} large={image.large} />
+        ))}
     </div>
   );
 
@@ -110,6 +84,7 @@ function App() {
                   prevHash={i === 0 ? zeroHash : getPrevHashById(i - 1)}
                   hashes={hashes}
                   setHashes={setHashes}
+                  badActor={badActor}
                 />
               ))}
             </div>
@@ -118,10 +93,9 @@ function App() {
       </div>
       <button
         className="btn-add-nodes"
-        onClick={addNode}
-        disabled={nodes.length === MAX_NUMBER_OF_NODES}
+        onClick={() => setBadActor((good) => !good)}
       >
-        add node
+        Bad Actor
       </button>
     </>
   );
