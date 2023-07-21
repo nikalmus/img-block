@@ -22,7 +22,6 @@ function App() {
         src: paintings.milkmaid,
         large: paintings.milkmaidL,
       },
-
       {
         id: 3,
         src: paintings.girlReading,
@@ -37,14 +36,7 @@ function App() {
     []
   );
 
-  const nodesRef = useRef(null);
-  const NUMBER_OF_BLOCKS = 4;
-
-
   const [hashes, setHashes] = useState([]);
-
-  const firstNode = { name: "A", id: 65 };
-  const [nodes, setNodes] = useState([firstNode]); //ascii for A
   const [badActor, setBadActor] = useState(false); 
   const [loadHelp, setLoadHelp] = useState(false);
   const [imageReplacedByBadActor, setImageReplacedByBadActor] = useState(false);
@@ -58,6 +50,7 @@ function App() {
   };
 
   const zeroHash = "0".repeat(64);
+  const NUMBER_OF_BLOCKS = 4; // Add NUMBER_OF_BLOCKS here
 
   const getPrevHashById = (id) => {
     const found = hashes.filter((item) => id === item.id);
@@ -66,7 +59,6 @@ function App() {
     }
     return "";
   };
-
 
   const repo = (
     <div className="repo">
@@ -82,9 +74,8 @@ function App() {
     if (badActor && imageReplacedByBadActor) {
       window.location.reload(); 
     } else if (badActor) {
-      setBadActor(false)
-    } 
-    else {
+      setBadActor(false);
+    } else {
       setBadActor(true); 
     }
   };
@@ -92,43 +83,41 @@ function App() {
   return (
     <>
       {repo}
-      <div className="chain" ref={nodesRef}>
-        {nodes.map((node) => (
-          <div key={node.name}>
-            {/* <span className="node-id">Node: {node.name}</span> */}
-            <div className="node" id={`node${node.name}`}>
-              {[...Array(NUMBER_OF_BLOCKS)].map((e, i) => (
-                <ImageBlock
-                  key={i}
-                  node={node.name}
-                  blockId={i}
-                  prevHash={i === 0 ? zeroHash : getPrevHashById(i - 1)}
-                  hashes={hashes}
-                  setHashes={setHashes}
-                  badActor={badActor}
-                  onImageReplacedByBadActor={handleImageReplacedByBadActor}
-                />
-              ))}
-            </div>
+      <div className="chain">
+        <div>
+          <div className="node" id={`nodeA`}>
+            {[...Array(NUMBER_OF_BLOCKS)].map((e, i) => (
+              <ImageBlock
+                key={i}
+                node="A"
+                blockId={i}
+                prevHash={i === 0 ? zeroHash : getPrevHashById(i - 1)}
+                hashes={hashes}
+                setHashes={setHashes}
+                badActor={badActor}
+                onImageReplacedByBadActor={handleImageReplacedByBadActor}
+              />
+            ))}
           </div>
-        ))}
+        </div>
       </div>
       <button
         className="btn-add-nodes"
         onClick={handleBadActorToggle}
-        title={badActor && imageReplacedByBadActor ? "Block was modified" : badActor && ! imageReplacedByBadActor ? "Switch to Good Actor" : "Switch to Bad Actor" }
+        title={badActor && imageReplacedByBadActor ? "Block was modified" : badActor && !imageReplacedByBadActor ? "Switch to Good Actor" : "Switch to Bad Actor" }
       >
-        {badActor && imageReplacedByBadActor ? "Reload" : badActor && ! imageReplacedByBadActor ? "Good Actor" : "Bad Actor" }
+        {badActor && imageReplacedByBadActor ? "Reload" : badActor && !imageReplacedByBadActor ? "Good Actor" : "Bad Actor" }
       </button>
       <div>
-      <button
-        className="btn-add-nodes"
-        onClick={handleHelp}
-      > Help
-      </button>
-      {loadHelp && (
-        <HelpModal setLoadHelp={setLoadHelp} />
-      )}
+        <button
+          className="btn-add-nodes"
+          onClick={handleHelp}
+        >
+          Help
+        </button>
+        {loadHelp && (
+          <HelpModal setLoadHelp={setLoadHelp} />
+        )}
       </div>
     </>
   );

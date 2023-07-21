@@ -36,7 +36,7 @@ const ImageBlock = ({ node, blockId, prevHash, hashes, setHashes, badActor, onIm
     badActorRef.current = badActor;
   }, [badActor]);
 
-  const [{ isOver }, drop] = useDrop(
+  const [, drop] = useDrop(
     () => ({
       accept: "picture",
       drop: (item, monitor) => {

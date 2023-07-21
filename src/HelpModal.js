@@ -77,7 +77,7 @@ const HelpModal = ({ setLoadHelp }) => {
             text: text7
           },
         ],
-        []
+        [text1, text2, text3, text4, text5, text6, text7]
       );
 
       const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -94,7 +94,7 @@ const HelpModal = ({ setLoadHelp }) => {
         <>
           <Backdrop />
           <Modal>
-            <div>
+            <div className="help-modal">
               <div className="image-container">
                 <img src={images[currentImageIndex].src} alt={`Help ${currentImageIndex + 1}`} className="screenshot"/>
               </div>
