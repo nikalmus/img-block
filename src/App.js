@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useRef } from "react";
+import React, { useState, useMemo } from "react";
 import Image from "./Image";
 import ImageBlock from "./ImageBlock";
 import HelpModal from "./HelpModal";
