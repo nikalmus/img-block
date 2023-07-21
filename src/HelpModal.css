@@ -21,6 +21,10 @@
     padding: 20px;
     text-align: center;
     border-radius: 6px;
+    padding-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
 
   .image-container {
@@ -39,14 +43,29 @@
   .image-text {
     margin-bottom: 20px;
     text-align: center;
-    font-size: 16px;
+    font-size: 14px;
     line-height: 1.6;
   }
+
+  /* media query for smaller window heights */
+@media (max-height: 600px) {
+  .image-text {
+    font-size: 14px;
+    line-height: 1.4;
+  }
+}
+
+@media (max-height: 400px) {
+  .image-text {
+    font-size: 12px;
+    line-height: 1.2;
+  }
+}
 
   button.close-btn {
     position: absolute;
     right: 10px;
-    bottom: 10px;
+    top: 10px;
   }
 
   /* Position the navigation buttons at the bottom of the container */
@@ -55,5 +74,7 @@
   bottom: 10px; 
   left: 0;
   right: 0;
+  display: flex;
+  justify-content: space-between;
 }
   

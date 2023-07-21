@@ -24,18 +24,13 @@ img:not(.screenshot) {
   grid-template-columns: repeat(4, 1fr); /* Adjust the number of columns as needed */
   gap: 5px; /* Add some gap between the "block" elements if desired */
   border: solid 2px black;
-  margin: 5px 30px 5px 30px;
+  margin: 5px 0; /*5px 30px 5px 30px*/
 }
-
-/* .node-id{
-  background-color: darkolivegreen;
-  color: white;
-  margin: 0px 30px 5px 30px;
-} */
 
 .block {
   display: grid;
-  grid-template-columns: 8fr 0.5fr; /*gaps were to wide when 3fr 1fr*/
+  grid-template-columns: 1fr 1fr; /*gaps were to wide when 3fr 1fr*/ 
+  margin: 5px 0;
 }
 
 .block-header {

@@ -110,6 +110,9 @@ const HelpModal = ({ setLoadHelp }) => {
       <Backdrop />
       <Modal>
         <div className="help-modal">
+        <button className="btn close-btn" onClick={() => setLoadHelp(false)}>
+              X
+        </button>
           <div className="image-container">
             <img src={images[currentImageIndex].src} alt={`Help ${currentImageIndex + 1}`} className="screenshot" />
           </div>
@@ -120,9 +123,6 @@ const HelpModal = ({ setLoadHelp }) => {
             </button>
             <button onClick={handleNextImage} disabled={currentImageIndex === images.length - 1} className="btn">
               Next
-            </button>
-            <button className="btn close-btn" onClick={() => setLoadHelp(false)}>
-              X
             </button>
           </div>
         </div>
